@@ -32,7 +32,8 @@ class UsernameModal extends React.Component {
             'handleStagePresetUsed',
             'handleDisableCompilerChange',
             'handleStoreProjectOptions',
-            'handleEnableDangerousOptimizationsChange'
+            'handleEnableDangerousOptimizationsChange',
+            'handleDisableOffscreenRenderingChange'
         ]);
     }
     handleFramerateChange (e) {
@@ -69,9 +70,13 @@ class UsernameModal extends React.Component {
         });
     }
     handleEnableDangerousOptimizationsChange (e) {
-        console.log(e.target.checked);
         this.props.vm.setRuntimeOptions({
             dangerousOptimizations: e.target.checked
+        });
+    }
+    handleDisableOffscreenRenderingChange (e) {
+        this.props.vm.setRuntimeOptions({
+            disableOffscreenRendering: e.target.checked
         });
     }
     handleWarpTimerChange (e) {
@@ -91,11 +96,17 @@ class UsernameModal extends React.Component {
         this.props.vm.setStageSize(this.props.customStageSize.width, value);
     }
     handleStagePresetUsed (widescreen) {
-        if (widescreen) {
+        switch (widescreen) {
+        case 1:
             this.props.vm.setStageSize(640, 360);
-            return;
+            break;
+        case 2:
+            this.props.vm.setStageSize(360, 360);
+            break;
+        default:
+            this.props.vm.setStageSize(480, 360);
+            break;
         }
-        this.props.vm.setStageSize(480, 360);
     }
     handleStoreProjectOptions () {
         this.props.vm.storeProjectOptions();
@@ -119,6 +130,7 @@ class UsernameModal extends React.Component {
                 onRemoveFencingChange={this.handleRemoveFencingChange}
                 onRemoveLimitsChange={this.handleRemoveLimitsChange}
                 onEnableDangerousOptimizationsChange={this.handleEnableDangerousOptimizationsChange}
+                onDisableOffscreenRenderingChange={this.handleDisableOffscreenRenderingChange}
                 onWarpTimerChange={this.handleWarpTimerChange}
                 onStageWidthChange={this.handleStageWidthChange}
                 onStageHeightChange={this.handleStageHeightChange}
@@ -176,6 +188,7 @@ const mapStateToProps = state => ({
     infiniteClones: state.scratchGui.tw.runtimeOptions.maxClones === Infinity,
     removeFencing: !state.scratchGui.tw.runtimeOptions.fencing,
     removeLimits: !state.scratchGui.tw.runtimeOptions.miscLimits,
+    disableOffscreenRendering: state.scratchGui.tw.runtimeOptions.disableOffscreenRendering,
     dangerousOptimizations: state.scratchGui.tw.runtimeOptions.dangerousOptimizations,
     warpTimer: state.scratchGui.tw.compilerOptions.warpTimer,
     customStageSize: state.scratchGui.customStageSize,

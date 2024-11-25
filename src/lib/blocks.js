@@ -515,10 +515,9 @@ export default function (vm) {
         {
             text: 'Remove Extension',
             enabled: true,
-            callback: ext => {
-                vm.extensionManager.removeExtension(ext);
-            }
+            callback: ext => vm.extensionManager.removeExtension(ext)
         }
+        // see src/components/blocks.jsx (just after `VMScratchBlocks(props.vm)`) for Edit Extension
     ]);
 
     return ScratchBlocks;

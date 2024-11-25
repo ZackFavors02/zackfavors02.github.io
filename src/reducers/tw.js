@@ -33,6 +33,7 @@ export const initialState = {
         maxClones: 300,
         miscLimits: true,
         dangerousOptimizations: false,
+        disableOffscreenRendering: false,
         fencing: true
     },
     isWindowFullScreen: false,
@@ -48,7 +49,7 @@ export const initialState = {
     extraProjectInfo: {
         accepted: true,
         isRemix: false,
-        remixId: 0,
+        remixId: '0',
         tooLarge: false,
         author: '',
         releaseDate: new Date(),

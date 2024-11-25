@@ -294,6 +294,27 @@ const EnableDangerousOptimizations = props => (
     />
 );
 
+const DisableOffscreenRendering = props => (
+    <BooleanSetting
+        {...props}
+        label={
+            <FormattedMessage
+                defaultMessage="Disable Off Screen Rendering"
+                description="Disable Out of Bounds Rendering setting"
+                id="pm.settingsModal.oobRendering"
+            />
+        }
+        help={
+            <FormattedMessage
+                defaultMessage="When enabled all sprites that are off screen will not be rendered."
+                description="Out of Bounds Rendering setting help"
+                id="pm.settingsModal.oobRenderingHelp"
+            />
+        }
+        // slug="out-of-bounds-rendering"
+    />
+);
+
 const WarpTimer = props => (
     <BooleanSetting
         {...props}
@@ -337,8 +358,16 @@ const CustomStageSize = ({
                 <div>
                     <button
                         className={styles.customStageSizeButton}
+                        data-selected={stageWidth === 360 && stageHeight === 360}
+                        data-square={true}
+                        onClick={() => onStagePresetUsed(2)}
+                    >
+                        1:1
+                    </button>
+                    <button
+                        className={styles.customStageSizeButton}
                         data-selected={stageWidth === 480 && stageHeight === 360}
-                        onClick={() => onStagePresetUsed(false)}
+                        onClick={() => onStagePresetUsed(0)}
                     >
                         4:3
                     </button>
@@ -346,7 +375,7 @@ const CustomStageSize = ({
                         className={styles.customStageSizeButton}
                         data-selected={stageWidth === 640 && stageHeight === 360}
                         data-widescreen={true}
-                        onClick={() => onStagePresetUsed(true)}
+                        onClick={() => onStagePresetUsed(1)}
                     >
                         16:9
                     </button>
@@ -475,10 +504,6 @@ const SettingsModalComponent = props => (
                 onChange={props.onFramerateChange}
                 onCustomizeFramerate={props.onCustomizeFramerate}
             />
-            <Interpolation
-                value={props.interpolation}
-                onChange={props.onInterpolationChange}
-            />
             <HighQualityPen
                 value={props.highQualityPen}
                 onChange={props.onHighQualityPenChange}
@@ -513,6 +538,10 @@ const SettingsModalComponent = props => (
                     id="pm.settingsModal.optimizations"
                 />
             </Header>
+            <DisableOffscreenRendering
+                value={props.disableOffscreenRendering}
+                onChange={props.onDisableOffscreenRenderingChange}
+            />
             <EnableDangerousOptimizations
                 value={props.dangerousOptimizations}
                 onChange={props.onEnableDangerousOptimizationsChange}
@@ -534,6 +563,30 @@ const SettingsModalComponent = props => (
                     {...props}
                 />
             )} */}
+            <details>
+                <summary className={styles.summary}>
+                    <Header>
+                        <span className={styles.dropdown}>⯈</span>
+                        <FormattedMessage
+                            defaultMessage="Unsupported"
+                            description="Old unsupported settings section"
+                            id="pm.settingsModal.unsupported"
+                        />
+                    </Header>
+                </summary>
+                <div className={styles.warning}>
+                    <FormattedMessage
+                        // eslint-disable-next-line max-len
+                        defaultMessage="The settings here are unsupported and can break at any time. These settings are here as they either have better methods to create their effects with better results, or break often when used with other extensions."
+                        description="Warning about old unsupported settings in settings menu"
+                        id="pm.settingsModal.unsupportedWarning"
+                    />
+                </div>
+                <Interpolation
+                    value={props.interpolation}
+                    onChange={props.onInterpolationChange}
+                />
+            </details>
         </Box>
     </Modal>
 );
@@ -560,7 +613,9 @@ SettingsModalComponent.propTypes = {
     disableCompiler: PropTypes.bool,
     dangerousOptimizations: PropTypes.bool,
     onDisableCompilerChange: PropTypes.func,
-    onEnableDangerousOptimizationsChange: PropTypes.func
+    onEnableDangerousOptimizationsChange: PropTypes.func,
+    disableOffscreenRendering: PropTypes.bool,
+    onDisableOffscreenRenderingChange: PropTypes.func
 };
 
 export default injectIntl(SettingsModalComponent);

@@ -6,16 +6,16 @@ import log from './log';
 import { setProjectTitle } from '../reducers/project-title';
 import { setAuthor, setDescription, setExtraProjectInfo, setRemixedProjectInfo } from '../reducers/tw';
 
-const API_URL = 'https://projects.penguinmod.com/api/projects/getPublished?id=$id';
-const API_REMIX_URL = 'https://projects.penguinmod.com/api/pmWrapper/remixes?id=$id';
+const API_URL = 'https://projects.penguinmod.com/api/v1/projects/getproject?projectID=$id&requestType=metadata';
+const API_REMIX_URL = 'https://projects.penguinmod.com/api/v1/projects/getremixes?projectId=$id';
 
 function APIProjectToReadableProject(apiProject) {
     return {
         id: apiProject.id,
-        name: apiProject.name,
+        name: apiProject.title,
         desc: apiProject.instructions,
         notes: apiProject.notes,
-        author: { id: -1, username: apiProject.owner }
+        author: { id: apiProject.author.id, username: apiProject.author.username }
     }
 }
 
@@ -95,7 +95,7 @@ const TWProjectMetaFetcherHOC = function (WrappedComponent) {
                         this.props.onSetProjectTitle(title);
                     }
                     const authorName = data.author.username;
-                    const authorThumbnail = `https://trampoline.turbowarp.org/avatars/by-username/${data.author.username}`;
+                    const authorThumbnail = `https://projects.penguinmod.com/api/v1/users/getpfp?username=${data.author.username}`;
                     this.props.onSetAuthor(authorName, authorThumbnail);
                     const instructions = data.desc || '';
                     const credits = data.notes || '';
@@ -105,18 +105,18 @@ const TWProjectMetaFetcherHOC = function (WrappedComponent) {
                     if (
                         typeof rawData.accepted === 'boolean'
                         || typeof rawData.removedsoft === 'boolean'
-                        || rawData.remix > 0 // checks isRemix and remixId existing at the same time
+                        || String(rawData.remix) !== '0' // checks isRemix and remixId existing at the same time
                         || typeof rawData.tooLarge === 'boolean'
                         || authorName
                     ) {
                         this.props.onSetExtraProjectInfo(
-                            rawData.accepted === true && !rawData.removedsoft,
-                            rawData.remix > 0,
-                            Number(rawData.remix),
-                            rawData.tooLarge === true,
+                            rawData.public && !rawData.softRejected,
+                            String(rawData.remix) !== '0',
+                            String(rawData.remix),
+                            false,
                             authorName,
-                            new Date(rawData.date),
-                            rawData.updating === true
+                            new Date(rawData.lastUpdate),
+                            rawData.lastUpdate !== rawData.date
                         );
                     }
                     if (rawData.remix > 0) {

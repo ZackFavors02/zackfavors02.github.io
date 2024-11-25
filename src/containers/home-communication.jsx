@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 import {setUsername, setUsernameInvalid, setUsernameLoggedIn} from '../reducers/tw';
 
 let origin = "https://penguinmod.com";
-// origin = 'http://localhost:5173';
 
 class HomeCommunication extends React.Component {
     constructor (props) {

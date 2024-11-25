@@ -9,7 +9,7 @@ import Input from '../forms/input.jsx';
 import Box from '../box/box.jsx';
 import styles from './variables-tab.css';
 
-class ShareButton extends React.Component {
+class VariablesTab extends React.Component {
     constructor(props) {
         super(props);
         bindAll(this, [
@@ -104,7 +104,7 @@ class ShareButton extends React.Component {
     }
 }
 
-ShareButton.propTypes = {
+VariablesTab.propTypes = {
     localVariables: PropTypes.any,
     globalVariables: PropTypes.any,
     showLargeValue: PropTypes.any,
@@ -121,4 +121,4 @@ ShareButton.propTypes = {
     onTypeVariableValue: PropTypes.func.isRequired,
 };
 
-export default injectIntl(ShareButton);
+export default injectIntl(VariablesTab);

@@ -101,6 +101,18 @@
         "rotationCenterY": 360
     },
     {
+        "name": "Beachy Sky",
+        "tags": [
+            "outdoors"
+        ],
+        "bitmapResolution": 2,
+        "dataFormat": "png",
+        "rotationCenterX": 480,
+        "rotationCenterY": 360,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/user/backdrops/Beachy_sky.png"
+    },
+    {
         "name": "Bedroom 1",
         "tags": [
             "bedroom",
@@ -191,6 +203,20 @@
         "rotationCenterY": 360
     },
     {
+        "name": "Calm Afternoon",
+        "tags": [
+            "outdoors",
+            "lights",
+            "purple"
+        ],
+        "bitmapResolution": 2,
+        "dataFormat": "png",
+        "rotationCenterX": 480,
+        "rotationCenterY": 360,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/user/backdrops/calm_afternoon.png"
+    },
+    {
         "name": "Calm Night",
         "tags": [
             "outdoors",
@@ -279,6 +305,19 @@
         "rotationCenterY": 360
     },
     {
+        "name": "Checkers",
+        "tags": [
+            "patterns",
+            "grid"
+        ],
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "rotationCenterX": 0,
+        "rotationCenterY": 0,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/user/backdrops/Checkers.svg"
+    },
+    {
         "name": "Circles",
         "tags": [
             "patterns"
@@ -337,9 +376,9 @@
         "name": "Desert",
         "tags": [
             "desert",
-            " landscape",
-            " outdoors",
-            " cacti"
+            "landscape",
+            "outdoors",
+            "cacti"
         ],
         "assetId": "d98a9526a34890cf4bad11b5409eae2a",
         "bitmapResolution": 2,
@@ -347,6 +386,19 @@
         "md5ext": "d98a9526a34890cf4bad11b5409eae2a.png",
         "rotationCenterX": 480,
         "rotationCenterY": 360
+    },
+    {
+        "name": "Ducks",
+        "tags": [
+            "outdoors",
+            "nature"
+        ],
+        "bitmapResolution": 2,
+        "dataFormat": "png",
+        "rotationCenterX": 480,
+        "rotationCenterY": 360,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/user/backdrops/ducks.png"
     },
     {
         "name": "Farm",
@@ -421,8 +473,8 @@
         "name": "Garden-rock",
         "tags": [
             "outdoors",
-            " garden",
-            " park"
+            "garden",
+            "park"
         ],
         "assetId": "4f66053598bea0905e1559ab9d5a6e31",
         "bitmapResolution": 2,
@@ -745,6 +797,20 @@
         "md5ext": "98f053f9681e872f34fafd783ce72205.svg",
         "rotationCenterX": 240,
         "rotationCenterY": 180
+    },
+    {
+        "name": "River Landscape",
+        "tags": [
+            "outdoors",
+            "river",
+            "landscape"
+        ],
+        "bitmapResolution": 2,
+        "dataFormat": "png",
+        "rotationCenterX": 480,
+        "rotationCenterY": 360,
+        "fromPenguinModLibrary": true,
+        "libraryFilePage": "images/user/backdrops/river_landscape.png"
     },
     {
         "name": "Room 1",

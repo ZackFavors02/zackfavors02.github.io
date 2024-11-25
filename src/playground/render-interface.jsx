@@ -125,6 +125,7 @@ runAddons();
 //     // if we have already gotten the details of this project, avoid making another request since they likely never changed
 //     if (projectDetailCache[String(id)] != null) return projectDetailCache[String(id)];
 
+//     // TODO: when this is fixed change this to the new api
 //     const response = await fetch(`https://projects.penguinmod.com/api/projects/getPublished?id=${id}`);
 //     // Don't continue if the api never returned 200-299 since we would cache an error as project details
 //     if (!response.ok) return {};
@@ -306,7 +307,8 @@ class Interface extends React.Component {
         const projectReleaseYear = extraProjectInfo.releaseDate.getFullYear();
         const projectReleaseMonth = monthNames[extraProjectInfo.releaseDate.getMonth()];
         const projectReleaseDay = addNumberSuffix(extraProjectInfo.releaseDate.getDate());
-        const projectReleaseHour = (extraProjectInfo.releaseDate.getHours() % 12) + 1;
+        const hour24 = extraProjectInfo.releaseDate.getHours();
+        const projectReleaseHour = hour24 === 0 ? 12 : (hour24 > 12 ? hour24 - 12 : hour24);
         const projectReleaseHalf = extraProjectInfo.releaseDate.getHours() > 11
             ? 'PM'
             : 'AM';
@@ -347,7 +349,7 @@ class Interface extends React.Component {
                                 className={styles.projectAuthorImage}
                                 title={extraProjectInfo.author}
                                 alt={extraProjectInfo.author}
-                                src={`https://trampoline.turbowarp.org/avatars/by-username/${extraProjectInfo.author}`}
+                                src={`https://projects.penguinmod.com/api/v1/users/getpfp?username=${extraProjectInfo.author}`}
                             />
                         </a>
                         <div className={styles.projectMetadata}>
@@ -393,7 +395,7 @@ class Interface extends React.Component {
                                                 className={styles.remixAuthorImage}
                                                 title={remixedProjectInfo.author}
                                                 alt={remixedProjectInfo.author}
-                                                src={`https://trampoline.turbowarp.org/avatars/by-username/${remixedProjectInfo.author}`}
+                                                src={`https://projects.penguinmod.com/api/v1/users/getpfp?username=${remixedProjectInfo.author}`}
                                             />
                                         </a>
                                         <p>
@@ -460,7 +462,7 @@ class Interface extends React.Component {
                                             className={styles.reportLink}
                                         >
                                             <img
-                                                src="/report_flag.png"
+                                                src="report_flag.png"
                                                 alt="!"
                                             />
                                             {'Report'}
@@ -501,7 +503,7 @@ Interface.propTypes = {
     extraProjectInfo: PropTypes.shape({
         accepted: PropTypes.bool,
         isRemix: PropTypes.bool,
-        remixId: PropTypes.number,
+        remixId: PropTypes.string,
         tooLarge: PropTypes.bool,
         author: PropTypes.string,
         releaseDate: PropTypes.shape(Date),

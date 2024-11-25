@@ -85,6 +85,13 @@ class Blocks extends React.Component {
     constructor (props) {
         super(props);
         this.ScratchBlocks = VMScratchBlocks(props.vm);
+        this.ScratchBlocks.Toolbox.registerMenu('extensionControls', [
+            {
+                text: 'Replace Extension',
+                enabled: true,
+                callback: ext => this.props.onOpenCustomExtensionModal(ext)
+            }
+        ], true);
         window.ScratchBlocks = this.ScratchBlocks;
         AddonHooks.blockly = this.ScratchBlocks;
         AddonHooks.blocklyCallbacks.forEach(i => i());
@@ -825,7 +832,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(activateTab(SOUNDS_TAB_INDEX));
         dispatch(openSoundRecorder());
     },
-    onOpenCustomExtensionModal: () => dispatch(openCustomExtensionModal()),
+    onOpenCustomExtensionModal: swapId => dispatch(openCustomExtensionModal(swapId)),
     onRequestCloseExtensionLibrary: () => {
         dispatch(closeExtensionLibrary());
     },
